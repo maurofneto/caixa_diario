@@ -1,0 +1,44 @@
+﻿@model ConsolidacaoIndexViewModel
+
+<div class="container">
+    <h2>Saldo Consolidado</h2>
+
+<form asp-controller="Consolidacao" asp-action="Index" method="get" class="form-inline">
+    <div class="form-group">
+        <label for="dataInicio">Data de Início:</label>
+        <input type="date" name="dataInicio" value="@Model.DataInicio.ToString("yyyy-MM-dd")" class="form-control" required>
+    </div>
+    <div class="form-group">
+        <label for="dataFim">Data de Fim:</label>
+        <input type="date" name="dataFim" value="@Model.DataFim.ToString("yyyy-MM-dd")" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Filtrar</button>
+</form>
+
+@if (Model.Saldos != null && Model.Saldos.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Saldo Inicial</th>
+                <th>Saldo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var saldo in Model.Saldos)
+            {
+                <tr>
+                    <td>@saldo.Data</td>
+                    <td>@saldo.SaldoInicial</td>
+                    <td>@saldo.Saldo</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nenhum saldo consolidado encontrado para o período selecionado.</p>
+}
+</div>
